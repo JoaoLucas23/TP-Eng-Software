@@ -5,8 +5,8 @@ const password = process.env.DB_PASSWORD || "";
 
 export const sequelize = new Sequelize(
     'eletro_master',
-    'root',	
-    '#Jojoka0723',	
+    user,	
+    password,	
     {
       host: 'localhost',
       dialect: 'mysql',
