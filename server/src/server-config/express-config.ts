@@ -17,4 +17,8 @@ app.use(express.urlencoded({
     extended: true,
   }));
 
+import rotasFuncionario from '../entidades/Funcionario/controllers/rotas';
+
+app.use('/api/funcionario',rotasFuncionario)
+
 export {app};
