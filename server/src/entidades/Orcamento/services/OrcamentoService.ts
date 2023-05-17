@@ -1,5 +1,6 @@
 import { ClienteInstance } from "../../Cliente/models/Cliente";
 import ClienteService from "../../Cliente/services/ClienteService";
+import ServicoService from "../../Servico/services/ServicoService";
 import { Orcamento, OrcamentoProps } from "../models/Orcamento";
 
 class OrcamentoService {
@@ -47,6 +48,7 @@ class OrcamentoService {
     async aprovaOrcamento(idOrcamento: number) {
         const orcamento = await this.buscaOrcamento(idOrcamento);
         await orcamento.update({aprovado: true});
+        await ServicoService.criaServico(idOrcamento);
     }
 
 }

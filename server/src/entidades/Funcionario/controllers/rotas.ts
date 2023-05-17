@@ -77,7 +77,7 @@ rotasFuncionario.get('/retornaFuncionariosPorNome/',
     async (req, res, next) => {
         try {
             const nome : string = req.body.nomeFuncionario;
-            const funcionario = await FuncionarioService.retornaFuncionariosPorNome(nome);
+            const funcionario = await FuncionarioService.retornaFuncionarioPorNome(nome);
             res.status(200).json(funcionario);
         } catch (error) {
             next(error);
