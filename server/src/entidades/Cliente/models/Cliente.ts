@@ -49,7 +49,7 @@ export const Cliente = sequelize.define<ClienteInstance>('Cliente', {
     timestamps: false,
 });
 
-Cliente.sync({alter:false, force: false})
+Cliente.sync({alter:true, force: false})
     .then(() => {
         console.log('Tabela Cliente criada');
     }

@@ -58,7 +58,7 @@ export const Orcamento = sequelize.define<OrcamentoInstance>('Orcamento', {
 Cliente.hasMany(Orcamento, {foreignKey: 'id_cliente', sourceKey: 'id'})
 Orcamento.belongsTo(Cliente, {foreignKey: 'id_cliente', targetKey: 'id'})
 
-Orcamento.sync({alter:false, force: false})
+Orcamento.sync({alter:true, force: false})
     .then(() => {
         console.log('Tabela Orcamento criada');
     }

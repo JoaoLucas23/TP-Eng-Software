@@ -8,6 +8,7 @@ export interface FuncionarioProps {
     foto: string;
     cargo: number;
     matricula: string;
+    disponivel: boolean;
 }
 
 export const Funcionario = sequelize.define('Funcionario', {
@@ -29,19 +30,24 @@ export const Funcionario = sequelize.define('Funcionario', {
         allowNull: false
     },
     cargo: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     matricula: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    disponivel: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 },
 {
     timestamps: false,
 });
 
-Funcionario.sync({alter:false, force: false})
+Funcionario.sync({alter:true, force: false})
     .then(() => {
         console.log('Tabela Funcionario criada');
     }
