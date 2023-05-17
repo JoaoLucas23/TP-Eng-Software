@@ -1,18 +1,21 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../database/database";
+import { Cliente } from "../../Cliente/models/Cliente";
 
 export interface OrcamentoProps {
-    id: number;
+    id?: number;
     valor: number;
     dataInicio: Date;
     dataFim: Date;
     tipoServico: string;
     descricao: string;
-    idCliente: number;
-    idFuncionario: number;
+    id_cliente?: number;
+    aprovado?: boolean;
 }
 
-export const Orcamento = sequelize.define('Orcamento', {
+export interface OrcamentoInstance extends Model<OrcamentoProps>, OrcamentoProps {}
+
+export const Orcamento = sequelize.define<OrcamentoInstance>('Orcamento', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -38,10 +41,22 @@ export const Orcamento = sequelize.define('Orcamento', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    aprovado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    id_cliente: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
 },
 {
     timestamps: false,
 });
+
+Cliente.hasMany(Orcamento, {foreignKey: 'id_cliente', sourceKey: 'id'})
+Orcamento.belongsTo(Cliente, {foreignKey: 'id_cliente', targetKey: 'id'})
 
 Orcamento.sync({alter:false, force: false})
     .then(() => {

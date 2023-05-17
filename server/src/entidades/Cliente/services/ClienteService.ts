@@ -1,3 +1,5 @@
+import { Orcamento } from "../../Orcamento/models/Orcamento";
+import OrcamentoService from "../../Orcamento/services/OrcamentoService";
 import { Cliente, ClienteProps } from "../models/Cliente";
 
 class ClienteService {
@@ -45,6 +47,14 @@ class ClienteService {
         const clientes = await Cliente.findAll();
         return clientes;
     }
+
+    async aprovaOrcamento(idCliente: number) {
+        const cliente = await this.buscaCliente(idCliente);
+        const orcamento = await OrcamentoService.buscaOrcamentoPorCliente(cliente.nome);
+        if (orcamento) await OrcamentoService.aprovaOrcamento(orcamento.id!); 
+        else throw new Error('Orçamento não encontrado');
+    }
+    
 }
 
 export default new ClienteService();

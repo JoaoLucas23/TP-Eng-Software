@@ -1,8 +1,8 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../database/database";
 
 export interface ClienteProps {
-    id: number;
+    id?: number;
     nome: string;
     data_nascimento: Date;
     email: string;
@@ -11,7 +11,9 @@ export interface ClienteProps {
     telefone: string;
 }
 
-export const Cliente = sequelize.define('Cliente', {
+export interface ClienteInstance extends Model<ClienteProps>, ClienteProps {}
+
+export const Cliente = sequelize.define<ClienteInstance>('Cliente', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
