@@ -38,8 +38,9 @@ class FuncionarioService {
         return funcionarios;
     }
 
-    async retornaFuncionariosPorNome(nome: string) {
+    async retornaFuncionarioPorNome(nome: string) {
         const funcionario = await Funcionario.findOne({where: {nome: nome}});
+        if (!funcionario) throw new Error('Funcionario não encontrado');
         return funcionario;
     }
 

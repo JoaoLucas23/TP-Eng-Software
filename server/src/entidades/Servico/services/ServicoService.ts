@@ -37,8 +37,9 @@ class ServicoService {
         return servicos;
     }
 
-    async retornaServicosPorFuncionario(idFuncionario: number) {
-        const servicos = await Servico.findAll({where: {id_funcionario: idFuncionario}});
+    async retornaServicosPorFuncionario(nomeFuncionario: string) {
+        const funcionario = await FuncionarioService.retornaFuncionarioPorNome(nomeFuncionario);
+        const servicos = await Servico.findAll({where: {id_funcionario: funcionario.id}});
         return servicos;
     }
 
