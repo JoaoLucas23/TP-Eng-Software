@@ -35,6 +35,7 @@ class OrcamentoService {
     async buscaOrcamentoPorCliente(nomeCliente: string) {
         const cliente = await ClienteService.buscaClientePorNome(nomeCliente);
         const orcamento = await Orcamento.findOne({where: {id_cliente: cliente.id}});
+        if (!orcamento) throw new Error('Orçamento não encontrado');
         return orcamento;
     }
 

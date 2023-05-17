@@ -7,7 +7,7 @@ import { Orcamento } from "../../Orcamento/models/Orcamento";
 export interface ServicoProps {
     id?: number;
     id_funcionario?: number;
-    id_orcamento?: boolean;
+    id_orcamento?: number;
     status: string;
 }
 

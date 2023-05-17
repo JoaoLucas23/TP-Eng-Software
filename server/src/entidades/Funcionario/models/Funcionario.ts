@@ -1,17 +1,19 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../database/database";
 
 export interface FuncionarioProps {
-    id: number;
+    id?: number;
     nome: string;
     data_nascimento: Date;
     foto: string;
     cargo: number;
     matricula: string;
-    disponivel: boolean;
+    disponivel?: boolean;
 }
 
-export const Funcionario = sequelize.define('Funcionario', {
+export interface FuncionarioInstance extends Model<FuncionarioProps>, FuncionarioProps {}
+
+export const Funcionario = sequelize.define<FuncionarioInstance>('Funcionario', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

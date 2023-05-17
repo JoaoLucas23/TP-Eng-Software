@@ -48,6 +48,11 @@ class FuncionarioService {
         return funcionarios;
     }
 
+    async retornaFuncionarioDisponivel() {
+        const funcionario = await Funcionario.findOne({where: {cargo: 'Mecânico', disponivel: true}});
+        if (!funcionario) throw new Error('Nenhum Funcionário disponível');
+        return funcionario;
+    }
 }
 
 export default new FuncionarioService();
