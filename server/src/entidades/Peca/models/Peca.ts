@@ -4,8 +4,12 @@ import { sequelize } from "../../../database/database";
 export interface PecaProps {
     id?: number;
     nome: string;
-    tipo: string;
-    quantidade: number;
+    categoria: string;
+    tamanho: number; 
+    peso: number; 
+    fabricante: string;
+    quantidade_disponivel?: number;
+    preco: number;
 }
 
 export interface PecaInstance extends Model<PecaProps>, PecaProps {}
@@ -20,15 +24,34 @@ export const Peca = sequelize.define<PecaInstance>('Peca', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    tipo: {
+    categoria: {
+        type: DataTypes.ENUM,
+        allowNull: false,
+        values: ['']
+    },
+    tamanho: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+    },
+    peso: {
+        type: DataTypes.NUMBER,
+        allowNull: false
+    },
+    fabricante: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    quantidade: {
+    quantidade_disponivel: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
+    },
+    preco: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+        defaultValue: 0.0
     }
+
 },
 {
     timestamps: false,
