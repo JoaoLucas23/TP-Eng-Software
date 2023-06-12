@@ -8,7 +8,7 @@ rotasServico.post('/criaServico/:idOrcamento',
         try {
             const idOrcamento : number = Number(req.params.idOrcamento);
             await ServicoService.criaServico(idOrcamento);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -20,7 +20,7 @@ rotasServico.put('/editaServico/:idServico',
         try {
             const idServico : number = Number(req.params.idServico);
             await ServicoService.editaServico(idServico, req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -32,7 +32,7 @@ rotasServico.delete('/deletaServico/:idServico',
         try {
             const idServico : number = Number(req.params.idServico);
             await ServicoService.deletaServico(idServico);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -97,5 +97,20 @@ rotasServico.get('/retornaServicosPorStatus/',
         }
     }
 );
+
+rotasServico.put('/alocaPecaServico/:idServico',
+    async (req, res, next) => {
+        try {
+            const idServico : number = Number(req.params.idServico);
+            const nomePeca : string = req.body.nomePeca;
+            const quantidade : number = Number(req.body.quantidade)
+            await ServicoService.alocaPecaServico(idServico, nomePeca, quantidade);
+            res.status(204).end();
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
 
 export default rotasServico;

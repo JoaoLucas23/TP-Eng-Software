@@ -7,7 +7,7 @@ rotasCliente.post('/criaCliente',
     async (req, res, next) => {
         try {
             await ClienteService.criaCliente(req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -18,7 +18,7 @@ rotasCliente.put('/editaCliente/:idCliente',
     async (req, res, next) => {
         try {
             await ClienteService.editaCliente(Number(req.params.idCliente), req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -30,7 +30,7 @@ rotasCliente.delete('/deletaCliente/:idCliente',
         try {
             const idCliente : number = Number(req.params.idCliente);
             await ClienteService.deletaCliente(idCliente);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -61,23 +61,23 @@ rotasCliente.get('/buscaClientePorNome/:nome',
     }
 );
 
-rotasCliente.get('/buscaClientePorEmail/:email',
+rotasCliente.get('/retornaTodosClientes',
     async (req, res, next) => {
-        try {   
-            const email : string = req.params.email;
-            const cliente = await ClienteService.buscaClientePorEmail(email);
-            res.status(200).json(cliente);
+        try {
+            const clientes = await ClienteService.retornaTodosClientes();
+            res.status(200).json(clientes);
         } catch (error) {
             next(error);
         }
     }
 );
 
-rotasCliente.get('/retornaTodosClientes',
+rotasCliente.put('/aprovaOrcamento/:idCliente',
     async (req, res, next) => {
         try {
-            const clientes = await ClienteService.retornaTodosClientes();
-            res.status(200).json(clientes);
+            const idCliente : number = Number(req.params.idCliente);
+            await ClienteService.aprovaOrcamento(idCliente);
+            res.status(204).end();
         } catch (error) {
             next(error);
         }

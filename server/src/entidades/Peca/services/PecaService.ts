@@ -18,8 +18,6 @@ class PecaService {
 
     async editaPeca(idPeca: number, body: PecaProps) {
         const peca = await this.buscaPeca(idPeca);
-        console.log("AAAAAAAAAAAAAAAAAAAAAA");
-        console.log(peca);
         await peca.update(body);
     }
 
@@ -40,13 +38,21 @@ class PecaService {
         return peca;
     }
 
-    async alocaPeca(nomePeca: string, quantidade: number) {
-        const peca = await this.buscaPecaPorNome(nomePeca);
+    async alocaPeca(idPeca: number, quantidade: number) {
+        const peca = await this.buscaPeca(idPeca);
         const quantidade_peca = peca.quantidade_disponivel!;
-        console.log(peca);
         if (quantidade_peca >= quantidade) {
             let novaQuantidade = quantidade_peca - quantidade;
-            this.editaPeca(peca.id!, { ...peca, quantidade_disponivel: novaQuantidade });
+            let novaPeca = {
+                nome: peca.nome,
+                categoria: peca.categoria,
+                tamanho: peca.tamanho,
+                peso: peca.peso,
+                fabricante: peca.fabricante,
+                preco: peca.preco,
+                quantidade_disponivel: novaQuantidade
+            }
+            this.editaPeca(peca.id!, novaPeca);
         }
         else {
             throw new Error('Quantidade nao disponivel');
@@ -55,9 +61,14 @@ class PecaService {
 
     async adicionaPeca(nomePeca: string, quantidade: number) {
         const peca = await this.buscaPecaPorNome(nomePeca);
-        const quantidade_peca = peca.quantidade_disponivel!;
+        const quantidade_peca : number = peca.quantidade_disponivel!;
         let novaQuantidade = quantidade_peca + quantidade;
         this.editaPeca(peca.id!, { ...peca, quantidade_disponivel: novaQuantidade});
+    }
+
+    async retornaTodasPecas() {
+        const pecas = await Peca.findAll();
+        return pecas;
     }
 }
 

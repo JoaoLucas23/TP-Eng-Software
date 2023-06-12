@@ -34,7 +34,7 @@ PecaServico.belongsTo(Servico, {foreignKey: 'id_servico', targetKey: 'id'});
 PecaServico.belongsTo(Peca, {foreignKey: 'id_peca', targetKey: 'id'});
 Peca.hasMany(PecaServico, {foreignKey: 'id_peca', sourceKey: 'id'});
 
-PecaServico.sync({alter:true, force: false})
+PecaServico.sync({alter:false, force: false})
     .then(() => {
         console.log('Tabela Peca criada');
     }

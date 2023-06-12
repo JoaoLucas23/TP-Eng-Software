@@ -8,7 +8,7 @@ rotasOrcamento.post('/criaOrcamento',
         try {
             const nomeCliente : string = req.body.nomeCliente;
             await OrcamentoService.criaOrcamento(nomeCliente, req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -20,7 +20,7 @@ rotasOrcamento.put('/editaOrcamento/:idOrcamento',
         try {
             const idOrcamento : number = Number(req.params.idOrcamento);
             await OrcamentoService.editaOrcamento(idOrcamento, req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -32,7 +32,7 @@ rotasOrcamento.delete('/deletaOrcamento/:idOrcamento',
         try {
             const idOrcamento : number = Number(req.params.idOrcamento);
             await OrcamentoService.deletaOrcamento(idOrcamento);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }

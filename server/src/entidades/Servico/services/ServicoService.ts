@@ -60,7 +60,7 @@ class ServicoService {
     async alocaPecaServico(idServico: number, nomePeca: string, quantidade: number) {
         const servico = await this.buscaServico(idServico);
         const peca = await PecaService.buscaPecaPorNome(nomePeca);
-        await PecaService.alocaPeca(peca.nome, quantidade);
+        await PecaService.alocaPeca(peca.id!, quantidade);
         const pecaServico = {
             id_peca: peca.id,
             id_servico: servico.id,

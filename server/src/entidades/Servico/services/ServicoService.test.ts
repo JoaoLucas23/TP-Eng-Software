@@ -4,6 +4,7 @@ import { Servico, ServicoProps } from "../models/Servico";
 import ServicoService from "./ServicoService";
 import { Cliente } from "../../Cliente/models/Cliente";
 import { Peca } from "../../Peca/models/Peca";
+import { PecaServico } from "../../PecaServico/models/PecaServico";
 
 jest.mock('../models/Servico.ts', () => ({
     Servico: {
@@ -83,6 +84,20 @@ jest.mock('../../Peca/models/Peca', () => ({
   },
 }));
   
+jest.mock('../../PecaServico/models/PecaServico', () => ({
+  PecaServico: {
+    findOne: jest.fn(),
+    create: jest.fn(),
+    update: jest.fn(),
+    destroy: jest.fn(),
+    findByPk: jest.fn(),
+    findAll: jest.fn(),
+    hasMany: jest.fn(),
+    belongsToMany: jest.fn(),
+    hasOne: jest.fn(),
+    belongsTo: jest.fn(),
+  },
+}));
 
   describe('create', () => {
     beforeEach(() => {

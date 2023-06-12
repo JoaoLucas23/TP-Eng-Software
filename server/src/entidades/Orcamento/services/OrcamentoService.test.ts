@@ -3,6 +3,7 @@ import { Orcamento, OrcamentoProps } from "../models/Orcamento";
 import OrcamentoService from "./OrcamentoService";
 import { Funcionario } from "../../Funcionario/models/Funcionario";
 import { Servico } from "../../Servico/models/Servico";
+import { PecaServico } from "../../PecaServico/models/PecaServico";
 
 jest.mock('../models/Orcamento', () => ({
     Orcamento: {
@@ -67,6 +68,20 @@ jest.mock('../models/Orcamento', () => ({
     },
   }));
   
+  jest.mock('../../PecaServico/models/PecaServico', () => ({
+    PecaServico: {
+      findOne: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      destroy: jest.fn(),
+      findByPk: jest.fn(),
+      findAll: jest.fn(),
+      hasMany: jest.fn(),
+      belongsToMany: jest.fn(),
+      hasOne: jest.fn(),
+      belongsTo: jest.fn(),
+    },
+  }));
   
   describe('create', () => {
     beforeEach(() => {

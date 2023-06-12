@@ -7,7 +7,7 @@ rotasFuncionario.post('/criaFuncionario',
     async (req, res, next) => {
         try {
             await FuncionarioService.criaFuncionario(req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -19,7 +19,7 @@ rotasFuncionario.put('/editaFuncionario/:idFuncionario',
         try {
             const idFuncionario : number = Number(req.params.idFuncionario);
             await FuncionarioService.editaFuncionario(idFuncionario, req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -31,7 +31,7 @@ rotasFuncionario.delete('/deletaFuncionario/:idFuncionario',
         try {
             const idFuncionario : number = Number(req.params.idFuncionario);
             await FuncionarioService.deletaFuncionario(idFuncionario);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }

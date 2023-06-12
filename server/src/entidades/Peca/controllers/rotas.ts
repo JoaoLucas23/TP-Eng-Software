@@ -7,7 +7,7 @@ rotasPeca.post('/criaPeca',
     async (req, res, next) => {
         try {
             await PecaService.criaPeca(req.body);
-            res.status(204)
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -19,7 +19,7 @@ rotasPeca.put('/editaPeca/:idPeca',
         try {
             const idPeca : number = Number(req.params.idPeca);
             await PecaService.editaPeca(idPeca, req.body);
-            res.status(204);
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -31,7 +31,7 @@ rotasPeca.delete('/deletaPeca/:idPeca',
         try {
             const idPeca : number = Number(req.params.idPeca);
             await PecaService.deletaPeca(idPeca);
-            res.status(204);
+            res.status(204).end();
         } catch (error) {
             next(error);
         }
@@ -62,13 +62,13 @@ rotasPeca.get('/buscaPecaPorNome/:nomePeca',
     }
 );
 
-rotasPeca.put('/alocaPeca/:nomePeca',
+rotasPeca.put('/alocaPeca/:idPeca',
     async (req, res, next) => {
         try {
-            const nomePeca : string = req.params.nomePeca;
-            const quantidade : number = req.body.quantidade;
-            await PecaService.alocaPeca(nomePeca, quantidade);
-            res.status(204);
+            const idPeca : number = Number(req.params.idPeca);
+            const quantidade : number = Number(req.body.quantidade);
+            await PecaService.alocaPeca(idPeca, quantidade);
+            res.status(204).end();;
         } catch (error) {
             next(error);
         }
@@ -79,9 +79,20 @@ rotasPeca.put('/adicionaPeca/:nomePeca',
     async (req, res, next) => {
         try {
             const nomePeca : string = req.params.nomePeca;
-            const quantidade : number = req.body.quantidade;
+            const quantidade : number = Number(req.body.quantidade);
             await PecaService.adicionaPeca(nomePeca, quantidade);
-            res.status(204);
+            res.status(204).end();
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+rotasPeca.get('/retornaPecas',
+    async (req, res, next) => {
+        try {
+            const pecas = await PecaService.retornaTodasPecas();
+            res.status(200).json(pecas);
         } catch (error) {
             next(error);
         }
