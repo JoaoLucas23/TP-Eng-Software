@@ -27,15 +27,17 @@ export const Peca = sequelize.define<PecaInstance>('Peca', {
     categoria: {
         type: DataTypes.ENUM,
         allowNull: false,
-        values: ['']
+        values: ['peca1', 'peca2', 'peca3']
     },
     tamanho: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.FLOAT,
         allowNull: false,
+        defaultValue: 0.0
     },
     peso: {
-        type: DataTypes.NUMBER,
-        allowNull: false
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0
     },
     fabricante: {
         type: DataTypes.STRING,
@@ -47,7 +49,7 @@ export const Peca = sequelize.define<PecaInstance>('Peca', {
         defaultValue: 0
     },
     preco: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.FLOAT,
         allowNull: false,
         defaultValue: 0.0
     }

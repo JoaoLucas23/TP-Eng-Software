@@ -5,8 +5,8 @@ import { Cliente } from "../../Cliente/models/Cliente";
 export interface OrcamentoProps {
     id?: number;
     valor: number;
-    dataInicio: Date;
-    dataFim: Date;
+    dataInicio: string;
+    dataFim: string;
     tipoServico: string;
     descricao: string;
     id_cliente?: number;
@@ -26,16 +26,17 @@ export const Orcamento = sequelize.define<OrcamentoInstance>('Orcamento', {
         allowNull: false
     },
     dataInicio: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     },
     dataFim: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     },
     tipoServico: {
         type: DataTypes.ENUM,
         allowNull: false,
+        values: ["Reparo", "Manutenção completa", "Reforma"]
     },
     descricao: {
         type: DataTypes.STRING,
@@ -58,7 +59,7 @@ export const Orcamento = sequelize.define<OrcamentoInstance>('Orcamento', {
 Cliente.hasMany(Orcamento, {foreignKey: 'id_cliente', sourceKey: 'id'})
 Orcamento.belongsTo(Cliente, {foreignKey: 'id_cliente', targetKey: 'id'})
 
-Orcamento.sync({alter:true, force: false})
+Orcamento.sync({alter:false, force: false})
     .then(() => {
         console.log('Tabela Orcamento criada');
     }

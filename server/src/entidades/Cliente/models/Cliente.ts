@@ -4,7 +4,7 @@ import { sequelize } from "../../../database/database";
 export interface ClienteProps {
     id?: number;
     nome: string;
-    data_nascimento: Date;
+    data_nascimento: string;
     email: string;
     senha: string;
     cpf: string;
@@ -24,7 +24,7 @@ export const Cliente = sequelize.define<ClienteInstance>('Cliente', {
         allowNull: false
     },
     data_nascimento: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     },
     email: {
@@ -49,7 +49,7 @@ export const Cliente = sequelize.define<ClienteInstance>('Cliente', {
     timestamps: false,
 });
 
-Cliente.sync({alter:true, force: false})
+Cliente.sync({alter:false, force: false})
     .then(() => {
         console.log('Tabela Cliente criada');
     }

@@ -4,9 +4,9 @@ import { sequelize } from "../../../database/database";
 export interface FuncionarioProps {
     id?: number;
     nome: string;
-    data_nascimento: Date;
+    data_nascimento: string;
     foto: string;
-    cargo: number;
+    cargo: string;
     matricula: string;
     disponivel?: boolean;
 }
@@ -24,7 +24,7 @@ export const Funcionario = sequelize.define<FuncionarioInstance>('Funcionario', 
         allowNull: false
     },
     data_nascimento: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     },
     foto: {
@@ -49,7 +49,7 @@ export const Funcionario = sequelize.define<FuncionarioInstance>('Funcionario', 
     timestamps: false,
 });
 
-Funcionario.sync({alter:true, force: false})
+Funcionario.sync({alter:false, force: false})
     .then(() => {
         console.log('Tabela Funcionario criada');
     }

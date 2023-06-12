@@ -21,10 +21,12 @@ import rotasFuncionario from '../entidades/Funcionario/controllers/rotas';
 import rotasCliente from '../entidades/Cliente/controllers/rotas';
 import rotasOrcamento from '../entidades/Orcamento/controllers/rotas';
 import rotasServico from '../entidades/Servico/controllers/rotas';
+import rotasPeca from '../entidades/Peca/controllers/rotas';
 
 app.use('/api/funcionario',rotasFuncionario);
 app.use('/api/cliente',rotasCliente);
 app.use('/api/orcamento',rotasOrcamento);
 app.use('/api/servico',rotasServico);
+app.use('/api/peca',rotasPeca);
 
 export {app};

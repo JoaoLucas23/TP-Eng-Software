@@ -41,7 +41,7 @@ Funcionario.hasOne(Servico, {foreignKey: 'id_funcionario', sourceKey: 'id'})
 Servico.belongsTo(Funcionario, {foreignKey: 'id_funcionario', targetKey: 'id'})
 Servico.belongsTo(Orcamento, {foreignKey: 'id_orcamento', targetKey: 'id'})
 
-Servico.sync({alter:true, force: false})
+Servico.sync({alter:false, force: false})
     .then(() => {
         console.log('Tabela Servico criada');
     }

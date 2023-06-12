@@ -2,6 +2,9 @@ import { Peca, PecaProps } from "../models/Peca";
 
 class PecaService {
     async criaPeca(body: PecaProps) {
+        if (body.categoria != 'peca1' && body.categoria != 'peca2' && body.categoria != 'peca3') {
+            throw new Error('Categoria inexistente');
+        }
         const novaPeca = {
             nome: body.nome,
             categoria: body.categoria,
