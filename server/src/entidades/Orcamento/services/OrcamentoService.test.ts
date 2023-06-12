@@ -94,7 +94,112 @@ jest.mock('../models/Orcamento', () => ({
     });   
   });
 
+  describe('edit', () => {
+    test('método recebe um id e um objeto com as informações do usuário => chama o update com os dados corretos', async () => {
+      const idOrcamento = 1;
+        const body = {
+          valor: 10.0,
+          dataInicio: '2021-10-10',
+          dataFim: '2021-10-10',
+          tipoServico: 'Reparo',
+          descricao: 'Teste',
+          id_cliente: 1,
+        };
 
+        const orcamentoInstance = {
+          update: jest.fn(),
+        };
+
+        (Orcamento.findByPk as any).mockResolvedValue(orcamentoInstance);
+
+        await OrcamentoService.editaOrcamento(idOrcamento, body);
+
+        expect(Orcamento.findByPk).toHaveBeenCalledWith(idOrcamento);
+        expect(orcamentoInstance.update).toHaveBeenCalledWith(body);
+    });
+  });
+
+    describe('delete', () => {
+      test('método recebe um id => chama o destroy com os dados corretos', async () => {  
+      const idOrcamento = 1;
+
+      const orcamentoInstance = {
+        destroy: jest.fn(),
+      };
+
+      (Orcamento.findByPk as any).mockResolvedValue(orcamentoInstance);
+
+      await OrcamentoService.deletaOrcamento(idOrcamento);
+
+      expect(Orcamento.findByPk).toHaveBeenCalledWith(idOrcamento);
+      expect(orcamentoInstance.destroy).toHaveBeenCalled();
+    });
+  });
+
+    describe('get', () => {
+      test('método recebe um id => chama o findByPk com os dados corretos', async () => {
+      const idOrcamento = 1;
+
+      const orcamentoInstance = {
+        findByPk: jest.fn(),
+      };
+
+      (Orcamento.findByPk as any).mockResolvedValue(orcamentoInstance);
+
+      await OrcamentoService.buscaOrcamento(idOrcamento);
+
+      expect(Orcamento.findByPk).toHaveBeenCalledWith(idOrcamento);
+    });
+  });
+
+    describe('getAll', () => {
+      test('método recebe um id => chama o findByPk com os dados corretos', async () => {
+      const orcamentos = [
+        {
+          id: 1,
+          valor: 10.0,
+          dataInicio: '2021-10-10',
+          dataFim: '2021-10-10',
+          tipoServico: 'Reparo',
+          descricao: 'Teste',
+          id_cliente: 1,
+        },
+        {
+          id: 2,
+          valor: 10.0,
+          dataInicio: '2021-10-10',
+          dataFim: '2021-10-10',
+          tipoServico: 'Reparo',
+          descricao: 'Teste',
+          id_cliente: 1,
+        },
+      ];
+
+      (Orcamento.findAll as any).mockResolvedValue(orcamentos);
+
+      const result = await OrcamentoService.retornaTodosOrcamentos();
+
+      expect(result).toEqual(orcamentos);
+    });
+  });
+
+    describe('approve', () => {
+      test('método recebe um id => chama o findByPk com os dados corretos', async () => {
+      const idOrcamento = 1;
+
+      const orcamentoInstance = {
+        update: jest.fn(),
+      };
+
+      (Funcionario.findOne as any).mockResolvedValue({id: 1});
+      (Orcamento.findByPk as any).mockResolvedValue(orcamentoInstance);
+
+      await OrcamentoService.aprovaOrcamento(idOrcamento);
+
+      expect(Orcamento.findByPk).toHaveBeenCalledWith(idOrcamento);
+      expect(orcamentoInstance.update).toHaveBeenCalledWith({aprovado: true});
+    });
+  });
 
 
 

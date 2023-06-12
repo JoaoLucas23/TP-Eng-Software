@@ -37,12 +37,6 @@ class ClienteService {
         return cliente;
     }
 
-    async buscaClientePorEmail(email: string) {
-        const cliente = await Cliente.findOne({where: {email: email}});
-        if (!cliente) throw new Error('Cliente não encontrado');
-        return cliente;
-    }
-
     async retornaTodosClientes() {
         const clientes = await Cliente.findAll();
         return clientes;

@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../database/database";
+import { Servico } from "../../Servico/models/Servico";
 
 export interface PecaProps {
     id?: number;
@@ -53,7 +54,6 @@ export const Peca = sequelize.define<PecaInstance>('Peca', {
         allowNull: false,
         defaultValue: 0.0
     }
-
 },
 {
     timestamps: false,

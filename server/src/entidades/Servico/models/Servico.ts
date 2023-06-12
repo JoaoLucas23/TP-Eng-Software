@@ -17,7 +17,7 @@ export const Servico = sequelize.define<ServicoInstance>('Servico', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
     },
     id_funcionario: {
         type: DataTypes.INTEGER,

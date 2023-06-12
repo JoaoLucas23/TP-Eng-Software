@@ -2,6 +2,8 @@ import { ClienteInstance } from "../../Cliente/models/Cliente";
 import ClienteService from "../../Cliente/services/ClienteService";
 import FuncionarioService from "../../Funcionario/services/FuncionarioService";
 import OrcamentoService from "../../Orcamento/services/OrcamentoService";
+import PecaService from "../../Peca/services/PecaService";
+import { PecaServico } from "../../PecaServico/models/PecaServico";
 import { Servico, ServicoProps } from "../models/Servico";
 
 class ServicoService {
@@ -55,6 +57,17 @@ class ServicoService {
         return servicos;
     }
 
+    async alocaPecaServico(idServico: number, nomePeca: string, quantidade: number) {
+        const servico = await this.buscaServico(idServico);
+        const peca = await PecaService.buscaPecaPorNome(nomePeca);
+        await PecaService.alocaPeca(peca.nome, quantidade);
+        const pecaServico = {
+            id_peca: peca.id,
+            id_servico: servico.id,
+            quantidade: quantidade
+        }
+        await PecaServico.create(pecaServico);
+    }
 }
 
 export default new ServicoService();

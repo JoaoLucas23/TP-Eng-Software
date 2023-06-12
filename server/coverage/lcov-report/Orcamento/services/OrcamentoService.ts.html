@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/25</span>
+                <span class='fraction'>23/25</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.47% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/23</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -138,37 +138,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,14 +192,14 @@ class OrcamentoService {
         await Orcamento.create(novoOrcamento);
     }
     
-    async <span class="fstat-no" title="function not covered" >editaOrcamento(</span>idOrcamento: number, body: OrcamentoProps) {
-        const orcamento = <span class="cstat-no" title="statement not covered" >await this.buscaOrcamento(idOrcamento);</span>
-<span class="cstat-no" title="statement not covered" >        await orcamento.update(body);</span>
+    async editaOrcamento(idOrcamento: number, body: OrcamentoProps) {
+        const orcamento = await this.buscaOrcamento(idOrcamento);
+        await orcamento.update(body);
     }
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >deletaOrcamento(</span>idOrcamento: number) {
-        const orcamento = <span class="cstat-no" title="statement not covered" >await this.buscaOrcamento(idOrcamento);</span>
-<span class="cstat-no" title="statement not covered" >        await orcamento.destroy();</span>
+    async deletaOrcamento(idOrcamento: number) {
+        const orcamento = await this.buscaOrcamento(idOrcamento);
+        await orcamento.destroy();
     }
 &nbsp;
     async buscaOrcamento(idOrcamento: number) {
@@ -208,22 +208,22 @@ class OrcamentoService {
         return orcamento;
     }
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >buscaOrcamentoPorCliente(</span>nomeCliente: string) {
-        const cliente = <span class="cstat-no" title="statement not covered" >await ClienteService.buscaClientePorNome(nomeCliente);</span>
-        const orcamento = <span class="cstat-no" title="statement not covered" >await Orcamento.findOne({where: {id_cliente: cliente.id}});</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!orcamento) <span class="cstat-no" title="statement not covered" >throw new Error('Orçamento não encontrado');</span></span>
-<span class="cstat-no" title="statement not covered" >        return orcamento;</span>
+    async buscaOrcamentoPorCliente(nomeCliente: string) {
+        const cliente = await ClienteService.buscaClientePorNome(nomeCliente);
+        const orcamento = await Orcamento.findOne({where: {id_cliente: cliente.id}});
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!orcamento) <span class="cstat-no" title="statement not covered" >throw new Error('Orçamento não encontrado');</span>
+        return orcamento;
     }
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >retornaTodosOrcamentos(</span>) {
-        const orcamentos = <span class="cstat-no" title="statement not covered" >await Orcamento.findAll();</span>
-<span class="cstat-no" title="statement not covered" >        return orcamentos;</span>
+    async retornaTodosOrcamentos() {
+        const orcamentos = await Orcamento.findAll();
+        return orcamentos;
     }
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >aprovaOrcamento(</span>idOrcamento: number) {
-        const orcamento = <span class="cstat-no" title="statement not covered" >await this.buscaOrcamento(idOrcamento);</span>
-<span class="cstat-no" title="statement not covered" >        await orcamento.update({aprovado: true});</span>
-<span class="cstat-no" title="statement not covered" >        await ServicoService.criaServico(idOrcamento);</span>
+    async aprovaOrcamento(idOrcamento: number) {
+        const orcamento = await this.buscaOrcamento(idOrcamento);
+        await orcamento.update({aprovado: true});
+        await ServicoService.criaServico(idOrcamento);
     }
 &nbsp;
 }
@@ -235,7 +235,7 @@ export default new OrcamentoService();</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-06-12T00:22:52.755Z
+                at 2023-06-12T03:00:56.093Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

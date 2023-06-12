@@ -18,6 +18,8 @@ class PecaService {
 
     async editaPeca(idPeca: number, body: PecaProps) {
         const peca = await this.buscaPeca(idPeca);
+        console.log("AAAAAAAAAAAAAAAAAAAAAA");
+        console.log(peca);
         await peca.update(body);
     }
 
@@ -41,6 +43,7 @@ class PecaService {
     async alocaPeca(nomePeca: string, quantidade: number) {
         const peca = await this.buscaPecaPorNome(nomePeca);
         const quantidade_peca = peca.quantidade_disponivel!;
+        console.log(peca);
         if (quantidade_peca >= quantidade) {
             let novaQuantidade = quantidade_peca - quantidade;
             this.editaPeca(peca.id!, { ...peca, quantidade_disponivel: novaQuantidade });
