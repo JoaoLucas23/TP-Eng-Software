@@ -11,6 +11,8 @@ export interface OrcamentoProps {
     descricao: string;
     id_cliente?: number;
     aprovado?: boolean;
+    nome_peca: string;
+    quantidade_peca: number;
 }
 
 export interface OrcamentoInstance extends Model<OrcamentoProps>, OrcamentoProps {}
@@ -46,6 +48,14 @@ export const Orcamento = sequelize.define<OrcamentoInstance>('Orcamento', {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
+    },
+    nome_peca: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    quantidade_peca: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     id_cliente: {
         type: DataTypes.INTEGER,

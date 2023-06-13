@@ -3,11 +3,13 @@ import OrcamentoService from "../services/OrcamentoService";
 
 const rotasOrcamento: Router = Router();
 
-rotasOrcamento.post('/criaOrcamento',
+rotasOrcamento.post('/criaOrcamento/:nomeCliente',
     async (req, res, next) => {
         try {
-            const nomeCliente : string = req.body.nomeCliente;
-            await OrcamentoService.criaOrcamento(nomeCliente, req.body);
+            const nomeCliente : string = req.params.nomeCliente;
+            const nomePeca : string = req.body.nomePeca;
+            const quantidade : number = Number(req.body.quantidade);
+            await OrcamentoService.criaOrcamento(nomeCliente, nomePeca, quantidade,req.body);
             res.status(204).end();
         } catch (error) {
             next(error);

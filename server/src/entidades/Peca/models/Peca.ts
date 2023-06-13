@@ -59,7 +59,7 @@ export const Peca = sequelize.define<PecaInstance>('Peca', {
     timestamps: false,
 });
 
-Peca.sync({alter:true, force: false})
+Peca.sync({alter:false, force: false})
     .then(() => {
         console.log('Tabela Peca criada');
     }

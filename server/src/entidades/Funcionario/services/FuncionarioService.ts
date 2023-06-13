@@ -54,6 +54,11 @@ class FuncionarioService {
         if (!funcionario) throw new Error('Nenhum Funcionário disponível');
         return funcionario;
     }
+
+    async alocaFuncionario(idFuncionario: number) {
+        const funcionario = await this.buscaFuncionario(idFuncionario);
+        await funcionario.update({disponivel: false});
+    }
 }
 
 export default new FuncionarioService();

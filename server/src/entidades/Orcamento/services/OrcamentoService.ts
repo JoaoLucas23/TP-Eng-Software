@@ -1,18 +1,28 @@
 import { ClienteInstance } from "../../Cliente/models/Cliente";
 import ClienteService from "../../Cliente/services/ClienteService";
+import PecaService from "../../Peca/services/PecaService";
 import ServicoService from "../../Servico/services/ServicoService";
 import { Orcamento, OrcamentoProps } from "../models/Orcamento";
 
 class OrcamentoService {
-    async criaOrcamento(nomeCliente: string,body: OrcamentoProps) {
+    async criaOrcamento(nomeCliente: string, nomePeca: string, quantidade: number,body: OrcamentoProps) {
         const cliente: ClienteInstance = await ClienteService.buscaClientePorNome(nomeCliente);
+
+        const peca = await PecaService.buscaPecaPorNome(nomePeca);
+        
+        if (peca.quantidade_disponivel! < quantidade) throw new Error('Quantidade de peças insuficiente');
+
+        const valor = peca.preco * quantidade;
+
         const novoOrcamento = {
-            valor: body.valor,
+            valor: valor,
             dataInicio: body.dataInicio,
             dataFim: body.dataFim,
             tipoServico: body.tipoServico,
             descricao: body.descricao,
             id_cliente: cliente?.id,
+            nome_peca: nomePeca,
+            quantidade_peca: quantidade
         }
         await Orcamento.create(novoOrcamento);
     }

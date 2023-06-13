@@ -1,6 +1,8 @@
 import { ClienteInstance } from "../../Cliente/models/Cliente";
 import ClienteService from "../../Cliente/services/ClienteService";
+import { Funcionario } from "../../Funcionario/models/Funcionario";
 import FuncionarioService from "../../Funcionario/services/FuncionarioService";
+import { Orcamento } from "../../Orcamento/models/Orcamento";
 import OrcamentoService from "../../Orcamento/services/OrcamentoService";
 import PecaService from "../../Peca/services/PecaService";
 import { PecaServico } from "../../PecaServico/models/PecaServico";
@@ -15,7 +17,10 @@ class ServicoService {
             id_orcamento: orcamento.id,
             status: 'Aguardando início'
         }
-        await Servico.create(novoServico);
+        await FuncionarioService.alocaFuncionario(funcionario.id!);
+        const servico = await Servico.create(novoServico);
+
+        await this.alocaPecaServico(servico.id!, orcamento.nome_peca, orcamento.quantidade_peca)
     }
 
     async editaServico(idServico: number, body: ServicoProps) {
@@ -48,7 +53,24 @@ class ServicoService {
     async retornaServicosPorCliente(nomeCliente: string) {
         const cliente = await ClienteService.buscaClientePorNome(nomeCliente);
         const orcamento = await OrcamentoService.buscaOrcamentoPorCliente(cliente.nome);
-        const servico = await Servico.findOne({where: {id_orcamento: orcamento.id}});
+        const servico = await Servico.findOne(
+            {
+                attributes: ['id', 'status'],
+                where: {
+                    id_orcamento: orcamento.id
+                },
+                include: [
+                    {
+                        model: Orcamento,
+                        attributes: ['valor', 'dataInicio', 'dataFim', 'tipoServico', 'descricao', 'aprovado'],
+                    },
+                    {
+                        model: Funcionario,
+                        attributes: ['nome', 'foto', 'cargo']
+                    }
+                ]
+            }
+        );
         return servico;
     }
 
