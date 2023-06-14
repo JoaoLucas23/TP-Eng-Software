@@ -114,13 +114,13 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
         status: 'Aguardando início',
       } as ServicoProps;
 
-      FuncionarioService.alocaFuncionario = jest.fn().mockImplementation();   
-      ServicoService.alocaPecaServico = jest.fn().mockImplementation();   
-
-      (Funcionario.findByPk as any).mockResolvedValue({id: 1});
+      (Funcionario.findByPk as any).mockResolvedValue({id: 1, update: jest.fn()});
       (Funcionario.findOne as any).mockResolvedValue({id: 1});
       (Orcamento.findByPk as any).mockResolvedValue({id: 1});
       (Servico.create as any).mockResolvedValue({});
+      (Servico.findByPk as any).mockResolvedValue({id: 1});
+      (Peca.findOne as any).mockResolvedValue({id: 1});
+      (PecaServico.create as any).mockResolvedValue({});
       
       await ServicoService.criaServico(1);
   
@@ -130,6 +130,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   });
 
   describe('edit', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe um objeto com as informações do usuário => chama o update com os dados corretos', async () => {
       const mockBodyServico = {
         id_funcionario: 1,
@@ -151,6 +156,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   )});
 
   describe('delete', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe um id => chama o destroy com os dados corretos', async () => {
 
       const idCliente = 1;
@@ -170,6 +180,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   );
 
   describe('find', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe um id => chama o findByPk com os dados corretos', async () => {
 
       (Servico.findByPk as any).mockResolvedValue({});
@@ -182,6 +197,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   );
 
   describe('findAll', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe um id => chama o findAll com os dados corretos', async () => {
       const servicos = [
         {
@@ -208,6 +228,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   );
 
   describe('findByFuncionario', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe um nome de funcionario => chama o findAll com os dados corretos', async () => {
       const servico = {
         id: 1,
@@ -228,6 +253,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   );
 
   describe('findByCliente', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe um nome de cliente => chama o findAll com os dados corretos', async () => {
       const servico = {
         id: 1,
@@ -263,6 +293,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   );
 
   describe('findByStatus', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe um status => chama o findAll com os dados corretos', async () => {
       const servicos = [
         {
@@ -290,6 +325,11 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
   );
 
   describe('alocaPecaServico', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('método recebe o nome e quantidade da peca => aloca para o servico ', async () => {
 
       const peca = {
@@ -318,11 +358,10 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
 
       (Peca.findOne as any).mockResolvedValue(peca);
       (Servico.findByPk as any).mockResolvedValue(servico);
-      PecaService.alocaPeca = jest.fn().mockImplementation();
 
-      const novaPecaServico = await ServicoService.alocaPecaServico(servico.id!, peca.nome, 5);
+      await ServicoService.alocaPecaServico(servico.id!, peca.nome, 5);
 
-      expect(novaPecaServico).toEqual(pecaServico);
+      expect(PecaServico.create).toHaveBeenCalledWith(pecaServico);
     }
     );
   });
