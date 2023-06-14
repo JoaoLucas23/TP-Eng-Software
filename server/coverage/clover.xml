@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1686719836034" clover="3.2.0">
-  <project timestamp="1686719836035" name="All files">
+<coverage generated="1686769282364" clover="3.2.0">
+  <project timestamp="1686769282365" name="All files">
     <metrics statements="146" coveredstatements="146" conditionals="17" coveredconditionals="17" methods="43" coveredmethods="43" elements="206" coveredelements="206" complexity="0" loc="146" ncloc="146" packages="6" files="6" classes="6"/>
     <package name="Cliente.services">
       <metrics statements="20" coveredstatements="20" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="7"/>
-      <file name="ClienteService.ts" path="/home/gabriel/JS/TP-Eng-Software/server/src/entidades/Cliente/services/ClienteService.ts">
+      <file name="ClienteService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\Cliente\services\ClienteService.ts">
         <metrics statements="20" coveredstatements="20" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="7"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -30,7 +30,7 @@
     </package>
     <package name="Funcionario.services">
       <metrics statements="25" coveredstatements="25" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="10"/>
-      <file name="FuncionarioService.ts" path="/home/gabriel/JS/TP-Eng-Software/server/src/entidades/Funcionario/services/FuncionarioService.ts">
+      <file name="FuncionarioService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\Funcionario\services\FuncionarioService.ts">
         <metrics statements="25" coveredstatements="25" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="10"/>
         <line num="1" count="4" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -61,7 +61,7 @@
     </package>
     <package name="Orcamento.services">
       <metrics statements="27" coveredstatements="27" conditionals="3" coveredconditionals="3" methods="7" coveredmethods="7"/>
-      <file name="OrcamentoService.ts" path="/home/gabriel/JS/TP-Eng-Software/server/src/entidades/Orcamento/services/OrcamentoService.ts">
+      <file name="OrcamentoService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\Orcamento\services\OrcamentoService.ts">
         <metrics statements="27" coveredstatements="27" conditionals="3" coveredconditionals="3" methods="7" coveredmethods="7"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -94,7 +94,7 @@
     </package>
     <package name="Peca.services">
       <metrics statements="29" coveredstatements="29" conditionals="8" coveredconditionals="8" methods="8" coveredmethods="8"/>
-      <file name="PecaService.ts" path="/home/gabriel/JS/TP-Eng-Software/server/src/entidades/Peca/services/PecaService.ts">
+      <file name="PecaService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\Peca\services\PecaService.ts">
         <metrics statements="29" coveredstatements="29" conditionals="8" coveredconditionals="8" methods="8" coveredmethods="8"/>
         <line num="1" count="4" type="stmt"/>
         <line num="5" count="2" type="cond" truecount="4" falsecount="0"/>
@@ -129,7 +129,7 @@
     </package>
     <package name="PecaServico.services">
       <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="PecaServicoService.ts" path="/home/gabriel/JS/TP-Eng-Software/server/src/entidades/PecaServico/services/PecaServicoService.ts">
+      <file name="PecaServicoService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\PecaServico\services\PecaServicoService.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -143,7 +143,7 @@
     </package>
     <package name="Servico.services">
       <metrics statements="37" coveredstatements="37" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="9"/>
-      <file name="ServicoService.ts" path="/home/gabriel/JS/TP-Eng-Software/server/src/entidades/Servico/services/ServicoService.ts">
+      <file name="ServicoService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\Servico\services\ServicoService.ts">
         <metrics statements="37" coveredstatements="37" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="9"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>

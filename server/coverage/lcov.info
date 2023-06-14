@@ -1,5 +1,5 @@
 TN:
-SF:src/entidades/Cliente/services/ClienteService.ts
+SF:src\entidades\Cliente\services\ClienteService.ts
 FN:6,(anonymous_8)
 FN:18,(anonymous_10)
 FN:23,(anonymous_12)
@@ -44,7 +44,7 @@ BRF:2
 BRH:2
 end_of_record
 TN:
-SF:src/entidades/Funcionario/services/FuncionarioService.ts
+SF:src\entidades\Funcionario\services\FuncionarioService.ts
 FN:4,(anonymous_7)
 FN:15,(anonymous_9)
 FN:20,(anonymous_11)
@@ -101,7 +101,7 @@ BRF:3
 BRH:3
 end_of_record
 TN:
-SF:src/entidades/Orcamento/services/OrcamentoService.ts
+SF:src\entidades\Orcamento\services\OrcamentoService.ts
 FN:8,(anonymous_8)
 FN:30,(anonymous_10)
 FN:35,(anonymous_12)
@@ -154,7 +154,7 @@ BRF:3
 BRH:3
 end_of_record
 TN:
-SF:src/entidades/Peca/services/PecaService.ts
+SF:src\entidades\Peca\services\PecaService.ts
 FN:4,(anonymous_7)
 FN:19,(anonymous_9)
 FN:24,(anonymous_11)
@@ -216,7 +216,7 @@ BRF:8
 BRH:8
 end_of_record
 TN:
-SF:src/entidades/PecaServico/services/PecaServicoService.ts
+SF:src\entidades\PecaServico\services\PecaServicoService.ts
 FN:7,(anonymous_7)
 FN:28,(anonymous_9)
 FNF:2
@@ -237,7 +237,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src/entidades/Servico/services/ServicoService.ts
+SF:src\entidades\Servico\services\ServicoService.ts
 FN:12,(anonymous_8)
 FN:26,(anonymous_10)
 FN:31,(anonymous_12)
