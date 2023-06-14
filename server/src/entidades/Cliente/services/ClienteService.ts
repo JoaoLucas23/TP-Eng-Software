@@ -45,8 +45,7 @@ class ClienteService {
     async aprovaOrcamento(idCliente: number) {
         const cliente = await this.buscaCliente(idCliente);
         const orcamento = await OrcamentoService.buscaOrcamentoPorCliente(cliente.nome);
-        if (orcamento) await OrcamentoService.aprovaOrcamento(orcamento.id!); 
-        else throw new Error('Orçamento não encontrado');
+        await OrcamentoService.aprovaOrcamento(orcamento.id!); 
     }
     
 }

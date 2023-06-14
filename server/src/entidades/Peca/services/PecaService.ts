@@ -28,13 +28,13 @@ class PecaService {
 
     async buscaPeca(idPeca: number) {
         const peca = await Peca.findByPk(idPeca);
-        if (!peca) throw new Error('Peca não encontrado');
+        if (!peca) throw new Error('Peça não encontrada');
         return peca;
     }
 
     async buscaPecaPorNome(nomePeca: string) {
         const peca = await Peca.findOne({where: {nome: nomePeca}});
-        if (!peca) throw new Error('Peca não encontrado');
+        if (!peca) throw new Error('Peça não encontrada');
         return peca;
     }
 

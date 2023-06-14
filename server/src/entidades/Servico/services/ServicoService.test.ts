@@ -192,9 +192,14 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
       await ServicoService.buscaServico(1);
   
       expect(Servico.findByPk).toHaveBeenCalledWith(1);
-    }
-  )}
-  );
+    })
+    
+    test('método recebe um id inexistente => retorna erro', async () => {
+      (Servico.findByPk as any).mockResolvedValue(null);
+
+      await expect(ServicoService.buscaServico(1)).rejects.toThrowError(new Error('Serviço não encontrado'));
+    })
+  });
 
   describe('findAll', () => {
     beforeEach(() => {

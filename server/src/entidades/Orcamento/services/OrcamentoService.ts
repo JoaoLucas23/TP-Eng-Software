@@ -20,7 +20,7 @@ class OrcamentoService {
             dataFim: body.dataFim,
             tipoServico: body.tipoServico,
             descricao: body.descricao,
-            id_cliente: cliente?.id,
+            id_cliente: cliente.id,
             nome_peca: nomePeca,
             quantidade_peca: quantidade
         }

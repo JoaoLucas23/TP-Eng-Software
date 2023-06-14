@@ -192,6 +192,16 @@ jest.mock('../models/Cliente', () => ({
       expect(Cliente.findByPk).toHaveBeenCalledWith(idCliente);
       expect(cliente).toEqual(clienteInstance);
     });
+
+    test('should return an error if the client is not found', async () => {
+      const idCliente = 1;
+
+      (Cliente.findByPk as any).mockResolvedValue(null);
+
+      const cliente = ClienteService.buscaCliente(idCliente);
+
+      await expect(cliente).rejects.toThrow('Cliente não encontrado');
+    });
   });
 
   describe('buscaClientePorNome', () => {
@@ -214,6 +224,16 @@ jest.mock('../models/Cliente', () => ({
 
       expect(Cliente.findOne).toHaveBeenCalledWith({where: {nome: nome}});
       expect(cliente).toEqual(clienteInstance);
+    });
+
+    test('should return an error if the client is not found', async () => {
+      const nome = 'Teste';
+
+      (Cliente.findOne as any).mockResolvedValue(null);
+
+      const cliente = ClienteService.buscaClientePorNome(nome);
+
+      await expect(cliente).rejects.toThrow('Cliente não encontrado');
     });
   });
 

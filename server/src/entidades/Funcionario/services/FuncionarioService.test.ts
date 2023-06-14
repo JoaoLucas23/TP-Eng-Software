@@ -152,6 +152,16 @@ jest.mock('../models/Funcionario', () => ({
       expect(Funcionario.findByPk).toHaveBeenCalledWith(idFuncionario);
       expect(cliente).toEqual(funcionarioInstance);
     });
+
+    test('should return an error if Funcionario is not found', async () => {
+      const idFuncionario = 1;
+
+      (Funcionario.findByPk as any).mockResolvedValue(null);
+
+      await expect(FuncionarioService.buscaFuncionario(idFuncionario)).rejects.toThrow(
+        new Error(`Funcionario não encontrado`)
+      );
+    });
   }
   );
 
@@ -206,6 +216,16 @@ jest.mock('../models/Funcionario', () => ({
       expect(funcionario).toEqual(funcionarioInstance);
     }
     );
+
+    test('should return an error if the Funcionario with the given matricula does not exist', async () => {
+      const nome = "Teste";
+
+      (Funcionario.findOne as any).mockResolvedValue(null);
+
+      await expect(FuncionarioService.retornaFuncionarioPorNome(nome)).rejects.toThrow(
+        new Error('Funcionario não encontrado')
+      );
+    });
   }
   );
 
@@ -260,6 +280,14 @@ jest.mock('../models/Funcionario', () => ({
       expect(funcionario).toEqual(funcionarioInstance);
     }
     );
+
+    test('should return an error if the Funcionario with the given cargo does not exist', async () => {
+      (Funcionario.findOne as any).mockResolvedValue(null);
+
+      await expect(FuncionarioService.retornaFuncionarioDisponivel()).rejects.toThrow(
+        new Error('Nenhum Funcionário disponível')
+      );
+    });
   }
   );
 

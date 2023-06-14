@@ -134,6 +134,15 @@ jest.mock('../models/Peca', () => ({
       expect(peca).toEqual(pecaInstance);
     }
     );
+
+    test('should return an error if the peca does not exist', async () => {
+      const idPeca = 1;
+
+      (Peca.findByPk as any).mockResolvedValue(null);
+
+      await expect(PecaService.buscaPeca(idPeca)).rejects.toThrowError(new Error('Peça não encontrada'));
+    }
+    );
   });
 
   
@@ -159,6 +168,14 @@ jest.mock('../models/Peca', () => ({
       expect(cliente).toEqual(pecaInstance);
     }
     );
+
+    test('should return an error if the peca does not exist', async () => {
+      const nome = 'peca1';
+
+      (Peca.findOne as any).mockResolvedValue(null);
+
+      await expect(PecaService.buscaPecaPorNome(nome)).rejects.toThrowError(new Error('Peça não encontrada'));
+    });
   });
 
   describe('alocaPeca', () => {

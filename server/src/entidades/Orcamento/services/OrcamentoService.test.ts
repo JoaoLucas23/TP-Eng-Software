@@ -136,7 +136,25 @@ jest.mock('../models/Orcamento', () => ({
   
       expect(Orcamento.create).toHaveBeenCalledWith(mockOrcamento);
       expect(Orcamento.create).toHaveBeenCalledTimes(1);
-    });   
+    });
+
+    test("método recebe uma quantidade de peças maior que a disponível => retorna erro", async () => {
+      const mockBodyOrcamento = {
+        dataInicio: '2021-10-10',
+        dataFim: '2021-10-10',
+        tipoServico: 'Reparo',
+        descricao: 'Teste',
+        quantidade_peca: 5,
+        nome_peca: 'Peca 1',
+        id_cliente: 1,
+      } as OrcamentoProps;
+
+      (Peca.findOne as any).mockResolvedValue({quantidade_disponivel: 4, preco: 2.5});
+      (Orcamento.create as jest.MockedFunction<typeof Orcamento.create>).mockResolvedValue({});
+      
+      (Cliente.findOne as any).mockResolvedValue({id:1});
+      await expect(OrcamentoService.criaOrcamento("Nome", "Peca 1", 5, mockBodyOrcamento)).rejects.toThrowError("Quantidade de peças insuficiente");
+    });
   });
 
   describe('edit', () => {
@@ -183,8 +201,8 @@ jest.mock('../models/Orcamento', () => ({
     });
   });
 
-    describe('get', () => {
-      test('método recebe um id => chama o findByPk com os dados corretos', async () => {
+  describe('get', () => {
+    test('método recebe um id => chama o findByPk com os dados corretos', async () => {
       const idOrcamento = 1;
 
       const orcamentoInstance = {
@@ -197,7 +215,41 @@ jest.mock('../models/Orcamento', () => ({
 
       expect(Orcamento.findByPk).toHaveBeenCalledWith(idOrcamento);
     });
+
+    test('método recebe um id inexistente => retorna erro', async () => {
+      const idOrcamento = 1;
+
+      (Orcamento.findByPk as any).mockResolvedValue(null);
+
+      await expect(OrcamentoService.buscaOrcamento(idOrcamento)).rejects.toThrowError("Orçamento não encontrado");
+    });
   });
+
+  describe('getByCliente', () => {
+    test('método recebe um nome => chama o findOne com os dados corretos', async () => {
+      const nomeCliente = "Nome";
+
+      const clienteInstance = {
+        id: 1,
+      };
+
+      (Cliente.findOne as any).mockResolvedValue(clienteInstance);
+      (Orcamento.findOne as any).mockResolvedValue({});
+
+      await OrcamentoService.buscaOrcamentoPorCliente(nomeCliente);
+
+      expect(Orcamento.findOne).toHaveBeenCalledWith({where: {id_cliente: clienteInstance.id}});
+    });
+
+    test('método recebe um nome inexistente => retorna erro', async () => {
+      const nomeCliente = "Nome";
+
+      (Orcamento.findOne as any).mockResolvedValue(null);
+
+      await expect(OrcamentoService.buscaOrcamentoPorCliente(nomeCliente)).rejects.toThrowError("Orçamento não encontrado");
+    });
+  });
+
 
     describe('getAll', () => {
       test('método recebe um id => chama o findByPk com os dados corretos', async () => {
