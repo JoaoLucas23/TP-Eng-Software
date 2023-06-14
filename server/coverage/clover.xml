@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1686710495174" clover="3.2.0">
-  <project timestamp="1686710495174" name="All files">
-    <metrics statements="149" coveredstatements="142" conditionals="23" coveredconditionals="10" methods="43" coveredmethods="42" elements="215" coveredelements="194" complexity="0" loc="149" ncloc="149" packages="6" files="6" classes="6"/>
+<coverage generated="1686712598843" clover="3.2.0">
+  <project timestamp="1686712598843" name="All files">
+    <metrics statements="147" coveredstatements="142" conditionals="23" coveredconditionals="10" methods="43" coveredmethods="42" elements="213" coveredelements="194" complexity="0" loc="147" ncloc="147" packages="6" files="6" classes="6"/>
     <package name="Cliente.services">
       <metrics statements="21" coveredstatements="20" conditionals="4" coveredconditionals="1" methods="7" coveredmethods="7"/>
       <file name="ClienteService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\Cliente\services\ClienteService.ts">
@@ -143,9 +143,9 @@
       </file>
     </package>
     <package name="Servico.services">
-      <metrics statements="39" coveredstatements="33" conditionals="1" coveredconditionals="0" methods="9" coveredmethods="8"/>
+      <metrics statements="37" coveredstatements="33" conditionals="1" coveredconditionals="0" methods="9" coveredmethods="8"/>
       <file name="ServicoService.ts" path="H:\Documentos\CODE\TP-Eng-Software\server\src\entidades\Servico\services\ServicoService.ts">
-        <metrics statements="39" coveredstatements="33" conditionals="1" coveredconditionals="0" methods="9" coveredmethods="8"/>
+        <metrics statements="37" coveredstatements="33" conditionals="1" coveredconditionals="0" methods="9" coveredmethods="8"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -181,10 +181,8 @@
         <line num="83" count="0" type="stmt"/>
         <line num="84" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="96" count="3" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
       </file>
     </package>
   </project>
