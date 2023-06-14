@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -136,15 +136,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,12 +154,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,16 +163,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,7 +205,7 @@ class OrcamentoService {
 &nbsp;
         const peca = await PecaService.buscaPecaPorNome(nomePeca);
         
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (peca.quantidade_disponivel! &lt; quantidade) <span class="cstat-no" title="statement not covered" >throw new Error('Quantidade de peças insuficiente');</span>
+        if (peca.quantidade_disponivel! &lt; quantidade) throw new Error('Quantidade de peças insuficiente');
 &nbsp;
         const valor = peca.preco * quantidade;
 &nbsp;
@@ -215,7 +215,7 @@ class OrcamentoService {
             dataFim: body.dataFim,
             tipoServico: body.tipoServico,
             descricao: body.descricao,
-            id_cliente: cliente<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d,
+            id_cliente: cliente.id,
             nome_peca: nomePeca,
             quantidade_peca: quantidade
         }
@@ -234,14 +234,14 @@ class OrcamentoService {
 &nbsp;
     async buscaOrcamento(idOrcamento: number) {
         const orcamento = await Orcamento.findByPk(idOrcamento);
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (!orcamento) <span class="cstat-no" title="statement not covered" >throw new Error('Orçamento não encontrado');</span>
+        if (!orcamento) throw new Error('Orçamento não encontrado');
         return orcamento;
     }
 &nbsp;
     async buscaOrcamentoPorCliente(nomeCliente: string) {
         const cliente = await ClienteService.buscaClientePorNome(nomeCliente);
         const orcamento = await Orcamento.findOne({where: {id_cliente: cliente.id}});
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (!orcamento) <span class="cstat-no" title="statement not covered" >throw new Error('Orçamento não encontrado');</span>
+        if (!orcamento) throw new Error('Orçamento não encontrado');
         return orcamento;
     }
 &nbsp;
@@ -265,7 +265,7 @@ export default new OrcamentoService();</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-06-14T03:16:38.729Z
+                at 2023-06-14T05:17:15.997Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
