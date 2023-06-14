@@ -80,17 +80,17 @@ class ServicoService {
     }
 
     async alocaPecaServico(idServico: number, nomePeca: string, quantidade: number) {
+        console.log("ASCASDASDASDS");
         const servico = await this.buscaServico(idServico);
-        console.log("Servico ok aqui");
         const peca = await PecaService.buscaPecaPorNome(nomePeca);
-        console.log("Peca ok aqui");
         await PecaService.alocaPeca(peca.id!, quantidade);
         const pecaServico = {
-            id_peca: peca.id,
-            id_servico: servico.id,
+            id_peca: peca.id!,
+            id_servico: servico.id!,
             quantidade: quantidade
-        }
-        await PecaServico.create(pecaServico);
+        };
+       const novaPecaServico = await PecaServico.create(pecaServico);
+       return novaPecaServico;
     }
 }
 

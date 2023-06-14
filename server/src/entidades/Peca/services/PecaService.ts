@@ -52,7 +52,7 @@ class PecaService {
                 preco: peca.preco,
                 quantidade_disponivel: novaQuantidade
             }
-            this.editaPeca(peca.id!, novaPeca);
+            return this.editaPeca(peca.id!, novaPeca);
         }
         else {
             throw new Error('Quantidade nao disponivel');
@@ -63,7 +63,7 @@ class PecaService {
         const peca = await this.buscaPecaPorNome(nomePeca);
         const quantidade_peca : number = peca.quantidade_disponivel!;
         let novaQuantidade = quantidade_peca + quantidade;
-        this.editaPeca(peca.id!, { ...peca, quantidade_disponivel: novaQuantidade});
+        return this.editaPeca(peca.id!, { ...peca, quantidade_disponivel: novaQuantidade});
     }
 
     async retornaTodasPecas() {

@@ -1,12 +1,19 @@
-
-
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../database/database";
 import PecaService from "../../Peca/services/PecaService";
 import { Servico } from "../../Servico/models/Servico";
 import { Peca } from "../../Peca/models/Peca";
 
-export const PecaServico = sequelize.define('PecaServico', {
+export interface PecaServicoProps {
+    id?: number;
+    id_peca: number;
+    id_servico: number;
+    quantidade: number;
+}
+
+export interface PecaServicoInstance extends Model<PecaServicoProps>, PecaServicoProps {}
+
+export const PecaServico = sequelize.define<PecaServicoInstance>('PecaServico', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

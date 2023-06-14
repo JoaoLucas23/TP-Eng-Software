@@ -4,6 +4,7 @@ import { Orcamento, OrcamentoInstance, OrcamentoProps } from '../../Orcamento/mo
 import { Servico } from '../../Servico/models/Servico';
 import { Funcionario } from '../../Funcionario/models/Funcionario';
 import { PecaServico } from '../../PecaServico/models/PecaServico';
+import OrcamentoService from '../../Orcamento/services/OrcamentoService';
 
 jest.mock('../models/Cliente', () => ({
     Cliente: {
@@ -68,6 +69,21 @@ jest.mock('../models/Cliente', () => ({
       sync: jest.fn(),
     },
   }));
+
+  jest.mock('../../Peca/models/Peca', () => ({
+    Peca: {
+      findOne: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      destroy: jest.fn(),
+      findByPk: jest.fn(),
+      findAll: jest.fn(),
+      hasMany: jest.fn(),
+      belongsToMany: jest.fn(),
+      hasOne: jest.fn(),
+      belongsTo: jest.fn(),
+    },
+  }));
   
   jest.mock('../../PecaServico/models/PecaServico', () => ({
     PecaServico: {
@@ -83,6 +99,8 @@ jest.mock('../models/Cliente', () => ({
       belongsTo: jest.fn(),
     },
   }));
+
+
   
   describe('create', () => {
     beforeEach(() => {
@@ -100,7 +118,7 @@ jest.mock('../models/Cliente', () => ({
         telefone: '12345678910'
       } as ClienteProps;
   
-      (Cliente.create as jest.MockedFunction<typeof Cliente.create>).mockResolvedValue({});
+      (Cliente.create as any).mockResolvedValue({});
       
       await ClienteService.criaCliente(mockBodyCliente);
   
@@ -232,45 +250,43 @@ jest.mock('../models/Cliente', () => ({
   });
 
   describe('aprovaOrcamento', () => {
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+    });
+
     test('should approve the budget with the given client ID', async () => {
-      
-      const idCliente = 1;
 
-      const clienteInstance = {
-        id: 1,
-        nome: 'Teste',
-        data_nascimento: '2021-06-15',
-        email: 'email',
-        senha: 'senha',
-        cpf: '123456789',
-        telefone: '123456789'
-      } as ClienteProps;
+        const cliente = {
+          id: 1,
+          nome: 'Cliente 1',
+          email: 'email@email.com',
+          senha: 'senha',
+          telefone: '999999999',
+          cpf: '12345678910'
+        };
 
-      const orcamentoInstance = {
-        id: 1,
-        valor: 100,
-        dataInicio: '2021-06-15',
-        dataFim: '2021-06-16',
-        tipoServico: 'Tipo',
-        descricao: 'Descrição',
-        id_cliente: 1,
-        aprovado: false
-      } as OrcamentoProps;
+        const orcamento = {
+          valor: 10.0,
+          dataInicio: '2021-10-10',
+          dataFim: '2021-10-10',
+          tipoServico: 'Reparo',
+          descricao: 'Teste',
+          nome_peca: 'Peca 1',
+          quantidade_peca: 5,
+          id_cliente: 1
+        };
 
-      const OrcamentoInstance = {
-        update: jest.fn(),
-      };
+        (Cliente.findByPk as any).mockResolvedValue(cliente);
+        (Cliente.findOne as any).mockResolvedValue(cliente);
+        (Orcamento.findOne as any).mockResolvedValue(orcamento);
+        OrcamentoService.aprovaOrcamento = jest.fn().mockImplementation();
 
-      (Funcionario.findOne as any).mockResolvedValue({id: 1});
-      (Cliente.findByPk as any).mockResolvedValue(clienteInstance);
-      (Orcamento.findOne as any).mockResolvedValue(orcamentoInstance);
-      (Orcamento.findByPk as any).mockResolvedValue(OrcamentoInstance);
+        await ClienteService.aprovaOrcamento(cliente.id);
 
-      await ClienteService.aprovaOrcamento(idCliente);
-
-      expect(Cliente.findByPk).toHaveBeenCalledWith(idCliente);
-      expect(Orcamento.findOne).toHaveBeenCalledWith({where: {id_cliente: clienteInstance.id}});
-      expect(OrcamentoInstance.update).toBeCalledWith({aprovado: true});
+        expect(Cliente.findByPk).toHaveBeenCalledWith(1);
+        expect(Cliente.findOne).toHaveBeenCalledWith({where: {nome: "Cliente 1"}});
+        expect(OrcamentoService.aprovaOrcamento).toBeCalledTimes(1);
     }
     );
   });

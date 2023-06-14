@@ -1,9 +1,11 @@
 import { Cliente } from "../../Cliente/models/Cliente";
-import { Orcamento, OrcamentoProps } from "../models/Orcamento";
+import { Orcamento, OrcamentoInstance, OrcamentoProps } from "../models/Orcamento";
 import OrcamentoService from "./OrcamentoService";
 import { Funcionario } from "../../Funcionario/models/Funcionario";
 import { Servico } from "../../Servico/models/Servico";
 import { PecaServico } from "../../PecaServico/models/PecaServico";
+import { Peca } from "../../Peca/models/Peca";
+import ServicoService from "../../Servico/services/ServicoService";
 
 jest.mock('../models/Orcamento', () => ({
     Orcamento: {
@@ -68,6 +70,21 @@ jest.mock('../models/Orcamento', () => ({
     },
   }));
   
+  jest.mock('../../Peca/models/Peca', () => ({
+    Peca: {
+      findOne: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      destroy: jest.fn(),
+      findByPk: jest.fn(),
+      findAll: jest.fn(),
+      hasMany: jest.fn(),
+      belongsToMany: jest.fn(),
+      hasOne: jest.fn(),
+      belongsTo: jest.fn(),
+    },
+  }));
+
   jest.mock('../../PecaServico/models/PecaServico', () => ({
     PecaServico: {
       findOne: jest.fn(),
@@ -91,20 +108,33 @@ jest.mock('../models/Orcamento', () => ({
   
     test('método recebe um objeto com as informações do usuário => chama o create com os dados corretos', async () => {
       const mockBodyOrcamento = {
-        valor: 10.0,
         dataInicio: '2021-10-10',
         dataFim: '2021-10-10',
         tipoServico: 'Reparo',
         descricao: 'Teste',
+        quantidade_peca: 5,
+        nome_peca: 'Peca 1',
         id_cliente: 1,
       } as OrcamentoProps;
+
+      const mockOrcamento = {
+        dataInicio: '2021-10-10',
+        dataFim: '2021-10-10',
+        tipoServico: 'Reparo',
+        descricao: 'Teste',
+        quantidade_peca: 5,
+        nome_peca: 'Peca 1',
+        id_cliente: 1,
+        valor: 12.5
+      } as OrcamentoProps;
   
+      (Peca.findOne as any).mockResolvedValue({quantidade_disponivel: 10, preco: 2.5});
       (Orcamento.create as jest.MockedFunction<typeof Orcamento.create>).mockResolvedValue({});
       
       (Cliente.findOne as any).mockResolvedValue({id:1});
-      await OrcamentoService.criaOrcamento("Nome", mockBodyOrcamento);
+      await OrcamentoService.criaOrcamento("Nome", "Peca 1", 5, mockBodyOrcamento);
   
-      expect(Orcamento.create).toHaveBeenCalledWith(mockBodyOrcamento);
+      expect(Orcamento.create).toHaveBeenCalledWith(mockOrcamento);
       expect(Orcamento.create).toHaveBeenCalledTimes(1);
     });   
   });
@@ -118,6 +148,8 @@ jest.mock('../models/Orcamento', () => ({
           dataFim: '2021-10-10',
           tipoServico: 'Reparo',
           descricao: 'Teste',
+          nome_peca: 'Peca 1',
+          quantidade_peca: 5,
           id_cliente: 1,
         };
 
@@ -197,17 +229,25 @@ jest.mock('../models/Orcamento', () => ({
       expect(result).toEqual(orcamentos);
     });
   });
-
+  
     describe('approve', () => {
       test('método recebe um id => chama o findByPk com os dados corretos', async () => {
       const idOrcamento = 1;
 
       const orcamentoInstance = {
-        update: jest.fn(),
-      };
+        valor: 10.0,
+        dataInicio: '2021-10-10',
+        dataFim: '2021-10-10',
+        tipoServico: 'Reparo',
+        descricao: 'Teste',
+        nome_peca: 'Peca 1',
+        quantidade_peca: 5,
+        id_cliente: 1,
+      } as OrcamentoInstance;
 
-      (Funcionario.findOne as any).mockResolvedValue({id: 1});
+      ServicoService.criaServico = jest.fn().mockImplementation();
       (Orcamento.findByPk as any).mockResolvedValue(orcamentoInstance);
+      orcamentoInstance.update = jest.fn().mockImplementation();
 
       await OrcamentoService.aprovaOrcamento(idOrcamento);
 
@@ -215,6 +255,4 @@ jest.mock('../models/Orcamento', () => ({
       expect(orcamentoInstance.update).toHaveBeenCalledWith({aprovado: true});
     });
   });
-
-
 

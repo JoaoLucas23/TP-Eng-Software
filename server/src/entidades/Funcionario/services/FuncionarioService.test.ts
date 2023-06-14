@@ -1,4 +1,4 @@
-import { Funcionario, FuncionarioProps } from "../models/Funcionario";
+import { Funcionario, FuncionarioInstance, FuncionarioProps } from "../models/Funcionario";
 import FuncionarioService from "./FuncionarioService";
 
 jest.mock('../models/Funcionario', () => ({
@@ -294,3 +294,37 @@ jest.mock('../models/Funcionario', () => ({
     );
   }
   );
+
+  describe('alocaFuncionario',  () => {
+    test('should change the funcionario status to not availabe', async () => {
+
+      const funcionario  = {
+        id: 1,
+        nome: "Teste",
+        data_nascimento: "2021-05-05",
+        foto: "teste.jpg",
+        cargo: "Mecânico",
+        matricula: "123456",
+        disponivel: true
+      } as FuncionarioInstance;
+      
+      const updatedFuncionario = {
+        id: 1,
+        nome: "Teste",
+        data_nascimento: "2021-05-05",
+        foto: "teste.jpg",
+        cargo: "Mecânico",
+        matricula: "123456",
+        disponivel: false
+      };
+      
+      (Funcionario.findByPk as any).mockResolvedValue(funcionario);
+      funcionario.update = jest.fn().mockReturnValue(updatedFuncionario);
+
+      const novoFuncionario = await FuncionarioService.alocaFuncionario(funcionario.id!);
+
+      expect(funcionario.update).toHaveBeenCalledWith({disponivel: false});
+      expect(novoFuncionario).toEqual(updatedFuncionario);
+    }
+    );
+  }) 

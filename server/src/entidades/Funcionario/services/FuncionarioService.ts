@@ -57,7 +57,7 @@ class FuncionarioService {
 
     async alocaFuncionario(idFuncionario: number) {
         const funcionario = await this.buscaFuncionario(idFuncionario);
-        await funcionario.update({disponivel: false});
+        return await funcionario.update({disponivel: false});
     }
 }
 

@@ -161,7 +161,7 @@ jest.mock('../models/Peca', () => ({
     );
   });
 
-  /*describe('alocaPeca', () => {
+  describe('alocaPeca', () => {
     test('should remove the amount of peca', async () => {
       const quantidade = 2;
 
@@ -174,7 +174,7 @@ jest.mock('../models/Peca', () => ({
         fabricante: "fabricante",
         preco: 110,
         quantidade_disponivel: 10
-      } as PecaProps;
+      };
 
       const pecaInstance2 = {
         id: 1,
@@ -185,24 +185,35 @@ jest.mock('../models/Peca', () => ({
         fabricante: "fabricante",
         preco: 110,
         quantidade_disponivel: 8
-      } as PecaProps;
-
-      const pecaInstance3 = {
-        update: jest.fn(),
       };
+
+      PecaService.editaPeca = jest.fn().mockReturnValue(pecaInstance2);
 
       (Peca.findByPk as any).mockResolvedValue(pecaInstance);
 
-      await PecaService.alocaPeca(1, quantidade);
+      const peca = await PecaService.alocaPeca(1, quantidade);
 
-      expect(pecaInstance3.update).toBeCalledWith({ ...pecaInstance2, quantidade_disponivel: 8});
+      expect(Peca.findByPk).toBeCalled();
+      expect(peca).toEqual(pecaInstance2);
     }
     );
-    test('should return error of quantity', async () => {
-      const nome = 'peca1';
-      const quantidade = 15;
 
-      await expect(PecaService.alocaPeca(nome, quantidade)).rejects.toThrowError(new Error('Quantidade nao disponivel'));
+    test('should return error of quantity', async () => {
+      const quantidade = 15;
+      const pecaInstance = {
+        id: 1,
+        nome: "Teste",
+        categoria: "peca1",
+        tamanho: 10,
+        peso: 10,
+        fabricante: "fabricante",
+        preco: 110,
+        quantidade_disponivel: 10
+      } as PecaProps;
+
+      (Peca.findByPk as any).mockResolvedValue(pecaInstance);
+
+      await expect(PecaService.alocaPeca(1, quantidade)).rejects.toThrowError(new Error('Quantidade nao disponivel'));
     }
     );
   }
@@ -235,8 +246,9 @@ jest.mock('../models/Peca', () => ({
         quantidade_disponivel: 11
       };
 
+      PecaService.editaPeca = jest.fn().mockReturnValue(pecaInstance2);
+      
       (Peca.findOne as any).mockResolvedValue(pecaInstance);
-      (Peca.update as any).mockResolvedValue(pecaInstance2);
 
       const peca = await PecaService.adicionaPeca(nome, quantidade);
 
@@ -245,4 +257,37 @@ jest.mock('../models/Peca', () => ({
     }
     );
   }
-  );*/
+  );
+
+  describe('retornaTodasPecas',() => {
+    test('should return the peca with the given ID', async () => {
+      const idPeca = 1;
+      const pecasInstance = [{
+        id: 1,
+        nome: "Peça",
+        categoria: "peca1",
+        tamanho: 10,
+        peso: 10,
+        fabricante: "fabricante",
+        preco: 110
+      },
+      {
+        id: 2,
+        nome: "Peça 2",
+        categoria: "peca1",
+        tamanho: 10,
+        peso: 10,
+        fabricante: "fabricante",
+        preco: 50
+      }
+    ];
+
+      (Peca.findAll as any).mockResolvedValue(pecasInstance);
+
+      const pecas = await PecaService.retornaTodasPecas();
+
+      expect(Peca.findAll).toBeCalled();
+      expect(pecas).toEqual(pecasInstance);
+    }
+    );
+  });

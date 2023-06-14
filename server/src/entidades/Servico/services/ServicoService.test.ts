@@ -1,10 +1,12 @@
 import { Funcionario } from "../../Funcionario/models/Funcionario";
 import { Orcamento } from "../../Orcamento/models/Orcamento";
-import { Servico, ServicoProps } from "../models/Servico";
+import { Servico, ServicoInstance, ServicoProps } from "../models/Servico";
 import ServicoService from "./ServicoService";
 import { Cliente } from "../../Cliente/models/Cliente";
-import { Peca } from "../../Peca/models/Peca";
-import { PecaServico } from "../../PecaServico/models/PecaServico";
+import { Peca, PecaInstance } from "../../Peca/models/Peca";
+import { PecaServico, PecaServicoInstance } from "../../PecaServico/models/PecaServico";
+import FuncionarioService from "../../Funcionario/services/FuncionarioService";
+import PecaService from "../../Peca/services/PecaService";
 
 jest.mock('../models/Servico.ts', () => ({
     Servico: {
@@ -112,10 +114,13 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
         status: 'Aguardando início',
       } as ServicoProps;
 
+      FuncionarioService.alocaFuncionario = jest.fn().mockImplementation();   
+      ServicoService.alocaPecaServico = jest.fn().mockImplementation();   
+
+      (Funcionario.findByPk as any).mockResolvedValue({id: 1});
       (Funcionario.findOne as any).mockResolvedValue({id: 1});
       (Orcamento.findByPk as any).mockResolvedValue({id: 1});
-  
-      (Servico.create as jest.MockedFunction<typeof Servico.create>).mockResolvedValue({});
+      (Servico.create as any).mockResolvedValue({});
       
       await ServicoService.criaServico(1);
   
@@ -238,7 +243,21 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
       const result = await ServicoService.retornaServicosPorCliente('Nome');
 
       expect(result).toEqual(servico);
-      expect(Servico.findOne).toHaveBeenCalledWith({where: {id_orcamento: 1}});
+      expect(Servico.findOne).toHaveBeenCalledWith({
+        attributes: ['id', 'status'],
+        where: {
+            id_orcamento: 1
+        },
+        include: [
+            {
+                model: Orcamento,
+                attributes: ['valor', 'dataInicio', 'dataFim', 'tipoServico', 'descricao', 'aprovado'],
+            },
+            {
+                model: Funcionario,
+                attributes: ['nome', 'foto', 'cargo']
+            }
+        ]});
     }
   )}
   );
@@ -269,4 +288,42 @@ jest.mock('../../PecaServico/models/PecaServico', () => ({
     }
   )}
   );
+
+  describe('alocaPecaServico', () => {
+    test('método recebe o nome e quantidade da peca => aloca para o servico ', async () => {
+
+      const peca = {
+        id: 1,
+        nome: "Teste",
+        categoria: "peca1",
+        tamanho: 10,
+        peso: 10,
+        fabricante: "fabricante",
+        preco: 110,
+        quantidade_disponivel: 10
+      } as PecaInstance;
+
+      const servico = {
+        id: 1,
+        id_funcionario: 1,
+        id_orcamento: 1,
+        status: 'Aguardando início'
+      } as ServicoInstance;
+
+      const pecaServico = {
+        id_peca: 1,
+        id_servico: 1,
+        quantidade: 5
+      } as PecaServicoInstance;
+
+      (Peca.findOne as any).mockResolvedValue(peca);
+      (Servico.findByPk as any).mockResolvedValue(servico);
+      PecaService.alocaPeca = jest.fn().mockImplementation();
+
+      const novaPecaServico = await ServicoService.alocaPecaServico(servico.id!, peca.nome, 5);
+
+      expect(novaPecaServico).toEqual(pecaServico);
+    }
+    );
+  });
 
